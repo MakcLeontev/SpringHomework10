@@ -35,5 +35,8 @@ public class BookService {
     public Book createBook(String name){
         return bookRepository.createBook(name);
     }
+    public List<Book> getAllBooks(){
+        return bookRepository.getAllBooks();
+    }
 
 }

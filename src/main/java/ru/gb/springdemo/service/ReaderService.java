@@ -6,6 +6,7 @@ import ru.gb.springdemo.model.Reader;
 import ru.gb.springdemo.repository.IssueRepository;
 import ru.gb.springdemo.repository.ReaderRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -41,5 +42,8 @@ public class ReaderService {
     public List<Issue> getIssuesForReaderId(long id){
         List<Issue> issues = issueRepository.getIssues();
         return issues.stream().filter(issue -> Objects.equals(issue.getReaderId(),id)).toList();
+    }
+    public List<Reader> getAllReader(){
+        return readerRepository.getAllReader();
     }
 }

@@ -33,7 +33,7 @@ public class IssuerService {
     // можно проверить, что у читателя нет книг на руках (или его лимит не превышает в Х книг)
     List<Issue> issueList = issueRepository.getIssues();
     long countBooksOnHand = issueList.stream().filter(issue -> Objects.equals(issue.getReaderId(),request.getReaderId())).count();
-    if (countBooksOnHand > 0){
+    if (countBooksOnHand > 2){
       throw new IllegalArgumentException("превышен лимит выдачи книг");
     }
     Issue issue = new Issue(request.getBookId(), request.getReaderId());
@@ -47,5 +47,8 @@ public class IssuerService {
     }else {
       throw new NoSuchElementException("не найдена выдача книги с id: "+ id);
     }
+  }
+  public List<Issue> getAllIssues(){
+    return issueRepository.getIssues();
   }
 }

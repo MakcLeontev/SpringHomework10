@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 import ru.gb.springdemo.model.Book;
+import ru.gb.springdemo.model.Issue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,4 +47,8 @@ public class BookRepository {
     books.add(book);
     return book;
    }
+    public List<Book> getAllBooks(){
+        List<Book>copyBooks = new ArrayList<>(books);
+        return copyBooks;
+    }
 }

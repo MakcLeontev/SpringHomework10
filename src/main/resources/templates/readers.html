@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Readers</title>
+</head>
+<body>
+    <h1>List of readers</h1><br>
+    <ul>
+      <li th:each="reader : ${readerList}" th:text="${reader.getName()}"></li>
+    </ul>
+</body>
+</html>

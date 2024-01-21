@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReaderIssues</title>
+</head>
+<body>
+    <h1>Table issues</h1>
+    <table>
+      <tr>
+        <th th:text="${reader.getName()}"></th>
+        <th th:text="${reader.getId()}"></th>
+      </tr>
+      <tr th:each="issue: ${issueItems}">
+        <td th:text="${issue.getBookName().getName()}"></td>
+      </tr>
+    </table>
+</body>
+</html>

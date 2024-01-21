@@ -42,5 +42,9 @@ public class ReaderRepository {
     readers.add(reader);
     return reader;
   }
+  public List<Reader> getAllReader(){
+    List<Reader>copyReader = new ArrayList<>(readers);
+    return copyReader;
+  }
 
 }

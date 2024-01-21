@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Issues table</title>
+</head>
+<body>
+    <h1>Table issues</h1>
+    <table>
+        <tr>
+            <th>Book</th>
+            <th>Reader</th>
+            <th>Issued_at</th>
+            <th>Returned_at</th>
+        </tr>
+        <tr th:each="issue: ${issueItems}">
+            <td th:text="${issue.getBookName().getName()}"></td>
+            <td th:text="${issue.getReaderName().getName()}"></td>
+            <td th:text="${issue.getTimestamp()}"></td>
+            <td th:text="null">null</td>
+        </tr>
+    </table>
+</body>
+</html>
