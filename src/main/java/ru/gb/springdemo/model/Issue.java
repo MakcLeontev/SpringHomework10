@@ -1,32 +1,47 @@
 package ru.gb.springdemo.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
 /**
  * Запись о факте выдачи книги (в БД)
  */
+@Entity
+@Table(name = "issues")
 @Data
 // @Entity
 public class Issue {
 
-  public static long sequence = 1L;
+ // public static long sequence = 1L;
 
-  private final long id;
-  private final long bookId;
-  private final long readerId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private  Long id;
+  private  Long bookId;
+  private  Long readerId;
 
-  /**
-   * Дата выдачи
-   */
-  private final LocalDateTime timestamp;
-
-  public Issue(long bookId, long readerId) {
-    this.id = sequence++;
+  public Issue(Long id, Long bookId, Long readerId) {
+    this.id = id;
     this.bookId = bookId;
     this.readerId = readerId;
     this.timestamp = LocalDateTime.now();
   }
 
+  /**
+   * Дата выдачи
+   */
+  private  LocalDateTime timestamp;
+
+  public Issue(Long bookId, Long readerId) {
+    this.bookId = bookId;
+    this.readerId = readerId;
+    this.timestamp = LocalDateTime.now();
+  }
+
+  public Issue() {
+
+  }
 }

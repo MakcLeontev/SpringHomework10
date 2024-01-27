@@ -1,21 +1,37 @@
 package ru.gb.springdemo.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
+@Table(name = "books")
 @Data
-@RequiredArgsConstructor
 public class Book {
 
-  public static long sequence = 1L;
+  //public static long sequence = 1L;
 
-  private final long id;
-  private final String name;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String name;
 
+    public Book(String name) {
+        this.name = name;
+    }
 
-  public Book(String name) {
-    this(sequence++, name);
+    public Book(Long id, String name) {
+    this.id = id;
+    this.name = name;
   }
+
+    public Book() {
+    }
+
+
+
+  //  public Book(String name) {
+//    this(sequence++, name);
+//  }
 
 }

@@ -6,6 +6,7 @@ import ru.gb.springdemo.repository.BookRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -16,27 +17,29 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Book getBookById(long id){
-        Book book = bookRepository.getBookById(id);
+    public Book getBookById(Long id){
+        Book book = bookRepository.findById(id).get();
         if (book != null){
             return book;
         }else {
             throw new NoSuchElementException("не найдена книга с id: "+ id);
         }
     }
-    public Book delBookById(long id){
-        Book book = bookRepository.delBookById(id);
+    public Book delBookById(Long id){
+        Book book = bookRepository.findById(id).get();
         if (book != null){
+            bookRepository.delete(book);
             return book;
         }else {
             throw new NoSuchElementException("не найдена книга с id: "+ id);
         }
     }
     public Book createBook(String name){
-        return bookRepository.createBook(name);
+        Book book = new Book(name);
+        return bookRepository.save(book);
     }
     public List<Book> getAllBooks(){
-        return bookRepository.getAllBooks();
+        return bookRepository.findAll();
     }
 
 }

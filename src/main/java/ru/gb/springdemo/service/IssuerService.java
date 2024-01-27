@@ -24,14 +24,14 @@ public class IssuerService {
   private final IssueRepository issueRepository;
 
   public Issue issue(IssueRequest request) {
-    if (bookRepository.getBookById(request.getBookId()) == null) {
+    if (bookRepository.findById(request.getBookId()) == null) {
       throw new NoSuchElementException("Не найдена книга с идентификатором \"" + request.getBookId() + "\"");
     }
-    if (readerRepository.getReaderById(request.getReaderId()) == null) {
+    if (readerRepository.findById(request.getReaderId()) == null) {
       throw new NoSuchElementException("Не найден читатель с идентификатором \"" + request.getReaderId() + "\"");
     }
     // можно проверить, что у читателя нет книг на руках (или его лимит не превышает в Х книг)
-    List<Issue> issueList = issueRepository.getIssues();
+    List<Issue> issueList = issueRepository.findAll();
     long countBooksOnHand = issueList.stream().filter(issue -> Objects.equals(issue.getReaderId(),request.getReaderId())).count();
     if (countBooksOnHand > 2){
       throw new IllegalArgumentException("превышен лимит выдачи книг");
@@ -41,7 +41,7 @@ public class IssuerService {
     return issue;
   }
   public Issue getIssueById(long id){
-    Issue issue = issueRepository.getIssue(id);
+    Issue issue = issueRepository.findById(id).get();
     if (issue!=null){
       return issue;
     }else {
@@ -49,6 +49,6 @@ public class IssuerService {
     }
   }
   public List<Issue> getAllIssues(){
-    return issueRepository.getIssues();
+    return issueRepository.findAll();
   }
 }

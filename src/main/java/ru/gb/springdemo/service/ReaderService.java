@@ -20,30 +20,32 @@ public class ReaderService {
         this.readerRepository = readerRepository;
         this.issueRepository = issueRepository;
     }
-    public Reader getReaderById(long id){
-        Reader reader = readerRepository.getReaderById(id);
+    public Reader getReaderById(Long id){
+        Reader reader = readerRepository.findById(id).get();
         if (reader != null){
             return reader;
         }else {
             throw new NoSuchElementException("не найден читатель с id: "+ id);
         }
     }
-    public Reader delReaderById(long id){
-        Reader reader = readerRepository.delreaderById(id);
+    public Reader delReaderById(Long id){
+        Reader reader = readerRepository.findById(id).get();
         if (reader != null){
+            readerRepository.delete(reader);
             return reader;
         }else {
             throw new NoSuchElementException("не найден читатель с id: "+ id);
         }
     }
     public Reader createReader(String name){
-        return readerRepository.createReader(name);
+        Reader reader = new Reader(name);
+        return readerRepository.save(reader);
     }
     public List<Issue> getIssuesForReaderId(long id){
-        List<Issue> issues = issueRepository.getIssues();
+        List<Issue> issues = issueRepository.findAll();
         return issues.stream().filter(issue -> Objects.equals(issue.getReaderId(),id)).toList();
     }
     public List<Reader> getAllReader(){
-        return readerRepository.getAllReader();
+        return readerRepository.findAll();
     }
 }
