@@ -1,5 +1,7 @@
 package ru.gb.springdemo.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -13,14 +15,16 @@ import ru.gb.springdemo.service.BookService;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Controller
+@RestController
 @RequestMapping("/book")
+@Tag(name = "Book")
 public class BookController {
     @Autowired
     private BookService bookService;
 
 
     @GetMapping("/{id}")
+    @Operation(summary = "get book by ID", description = "Загружает книгу по ID")
     public ResponseEntity<Book> getById(@PathVariable long id){
         Book book = null;
         try {
@@ -31,6 +35,7 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(book);
     }
     @DeleteMapping("/{id}")
+    @Operation(summary = "delete book by ID", description = "Удаляет книгу по ID")
     public ResponseEntity<Book>  delById(@PathVariable long id){
         Book book = null;
         try {
@@ -41,6 +46,7 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(book);
     }
     @PostMapping()
+    @Operation(summary = "create book", description = "Создает книгу по имени")
     public ResponseEntity<Book> createBook(@RequestBody Book book){
         Book book1 = bookService.createBook(book.getName());
         return ResponseEntity.status(HttpStatus.OK).body(book1);
