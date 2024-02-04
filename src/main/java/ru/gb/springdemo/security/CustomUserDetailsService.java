@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import ru.gb.springdemo.aspect.Timer;
 import ru.gb.springdemo.repository.UserRepository;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    @Timer
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ru.gb.springdemo.model.User user = userRepository.findByName(username)
