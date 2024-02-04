@@ -2,6 +2,13 @@ package ru.gb.springdemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import ru.gb.springdemo.model.Role;
+import ru.gb.springdemo.model.User;
+import ru.gb.springdemo.repository.UserRepository;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootApplication
 public class Application {
@@ -54,7 +61,23 @@ public class Application {
 	 */
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		UserRepository userRepository = SpringApplication.run(Application.class, args).getBean(UserRepository.class);
+		saveUser(userRepository,"admin");
+		saveUser(userRepository,"reader");
+		saveUser(userRepository,"auth");
 	}
 
+	private static void saveUser(UserRepository userRepository, String login){
+		User user = new User(login,login);
+		Set<Role>roles = new HashSet<>();
+		Role role = new Role(login);
+		roles.add(role);
+		user.setRole(login);
+		userRepository.save(user);
+//		Role role2 = (Role) user.getRoles().toArray()[0];
+//		Set<Role> roles2 = user.getRoles();
+//		//roles2.
+//
+//		System.out.println(((Role) user.getRoles().toArray()[0]).getName());
+	}
 }
