@@ -44,13 +44,13 @@ public class BookController {
         }catch (NoSuchElementException e){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.status(HttpStatus.OK).body(book);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(book);
     }
     @PostMapping()
     @Operation(summary = "create book", description = "Создает книгу по имени")
     public ResponseEntity<Book> createBook(@RequestBody Book book){
         Book book1 = bookService.createBook(book.getName());
-        return ResponseEntity.status(HttpStatus.OK).body(book1);
+        return ResponseEntity.status(HttpStatus.CREATED).body(book1);
     }
 
 }

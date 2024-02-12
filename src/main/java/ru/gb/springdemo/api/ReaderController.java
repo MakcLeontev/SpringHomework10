@@ -44,13 +44,13 @@ public class ReaderController {
         }catch (NoSuchElementException e){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.status(HttpStatus.OK).body(reader);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(reader);
     }
     @PostMapping()
     @Operation(summary = "create Reader", description = "Создает читателя по имени")
     public ResponseEntity<Reader> createReader(@RequestBody Reader reader){
         Reader reader1 = readerService.createReader(reader.getName());
-        return ResponseEntity.status(HttpStatus.OK).body(reader1);
+        return ResponseEntity.status(HttpStatus.CREATED).body(reader1);
     }
     @GetMapping("/{id}/issue")
     @Operation(summary = "get All Issues for reader", description = "Выдает список выдачей читателя по его ID")
